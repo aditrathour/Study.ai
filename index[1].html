@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyNote.AI - AI-Powered Note Generation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <header id="app-header">
+        <div class="header-content">
+            <div class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 19.5C4 18.837 4.26339 18.2011 4.73223 17.7322C5.20107 17.2634 5.83696 17 6.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.5 17C8.433 17 10 15.433 10 13.5V5C10 4.46957 9.78929 3.96086 9.41421 3.58579C9.03914 3.21071 8.53043 3 8 3H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M14 3V13.5C14 15.433 12.433 17 10.5 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>StudyNote.AI</h1>
+            </div>
+            <p>Your personal AI assistant for academic notes</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="panel input-panel">
+                <h2>Create Notes</h2>
+                
+                <div class="form-group">
+                    <label for="topic-input">Topic or Text</label>
+                    <textarea id="topic-input" rows="4" placeholder="e.g., 'The process of mitosis' or paste text..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="url-input">YouTube or Web Link</label>
+                    <input type="url" id="url-input" placeholder="e.g., https://www.youtube.com/watch?v=...">
+                </div>
+
+                <div class="form-group">
+                    <label for="file-upload">Or Upload an Image</label>
+                    <input type="file" id="file-upload" accept="image/*">
+                    <label for="file-upload" class="file-upload-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                        <span>Choose a file...</span>
+                    </label>
+                    <p id="file-name" class="file-name-display"></p>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="form-group">
+                        <label for="academic-level">Academic Level</label>
+                        <select id="academic-level">
+                            <option value="High School">High School</option>
+                            <option value="Undergraduate">Undergraduate</option>
+                            <option value="Undergraduate (BCA)">Undergraduate (BCA)</option>
+                            <option value="Postgraduate">Postgraduate</option>
+                            <option value="PhD">PhD</option>
+                            <option value="Academic">Academic</option>
+                            <option value="General" selected>General / Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="generate-btn" class="primary-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                    <span>Generate Notes</span>
+                </button>
+            </div>
+
+            <div id="output-panel-wrapper" class="panel output-panel hidden">
+                <div id="output-container">
+                    <!-- This will be populated by JS. -->
+                </div>
+                <div id="output-actions" class="hidden">
+                     <button id="copy-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        <span>Copy</span>
+                    </button>
+                    <button id="export-pdf-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M10 12v-1a2 2 0 0 1 2-2v0a2 2 0 0 1 2 2v1"/><path d="M14 11h-4a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2Z"/></svg>
+                        <span>PDF</span>
+                    </button>
+                    <button id="export-docx-btn">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="M15 15h-3a3 3 0 1 0 0 6h3a3 3 0 1 0 0-6Z"/></svg>
+                        <span>DOCX</span>
+                    </button>
+                    <button id="export-txt-btn">
+                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                        <span>TXT</span>
+                    </button>
+                </div>
+                 <div id="loading-indicator" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Generating Notes...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>From Lecture Chaos to Study Clarity</p>
+        <p class="author-line">Developed by <button id="author-btn">Adit Rathour</button></p>
+    </footer>
+
+    <div id="author-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <h2>About the Author</h2>
+            <div class="author-info">
+                <h3>Adit Rathour</h3>
+                <a href="mailto:aditprataps@gmail.com">aditprataps@gmail.com</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="importmap">
+    {
+        "imports": {
+        "@google/genai": "https://esm.sh/@google/genai@^0.12.0",
+        "jspdf": "https://esm.sh/jspdf@2.5.1",
+        "html2canvas": "https://esm.sh/html2canvas@1.4.1",
+        "docx": "https://esm.sh/docx@8.5.0"
+        }
+    }
+    </script>
+    <script type="module" src="index.js"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
